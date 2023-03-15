@@ -108,7 +108,6 @@ vec3 r_color(const ray& r, hittable* world,int depth)
 	
 	if (world->hit(r, 0.001, MAXDOUBLE, rec)) //0.001 is important book1 chap7 the picture got much more brighter
 	{
-		//模拟光线随机的散射，当然每次散射一根光线，每个像素有大的w
 		ray scattered;
 		vec3 attenuation;
 		vec3 emitted = rec.mat_ptr->emitted(rec.u, rec.v, rec.p);
@@ -121,7 +120,6 @@ vec3 r_color(const ray& r, hittable* world,int depth)
 			return emitted;
 	}
 	else{return vec3(0, 0, 0);}
-	//注释掉else部分，有了黑暗的背景
 	/*else
 	{
 		vec3 unit_dir = unit_vector(r.direction());
@@ -215,7 +213,6 @@ void output_pixel(const vector<vec3>& framebuffer,const int&nx,const int &ny)
 	for (int i = 0; i < nx * ny; i++)
 	{
 		static unsigned char color[3];
-		//没有clamp 会出现离谱的结果！
 		color[0] = (unsigned char)(255.99 * clamp(framebuffer[i].x(), 0.0, 0.999));
 		color[1] = (unsigned char)(255.99 * clamp(framebuffer[i].y(), 0.0, 0.999));
 		color[2] = (unsigned char)(255.99 * clamp(framebuffer[i].z(), 0.0, 0.999));
@@ -593,7 +590,7 @@ int main()
 	for (int i=0;i<nx*ny; i++)
 	{
 		static unsigned char color[3];
-		//没有clamp 会出现离谱的结果！
+		
 		color[0] = (unsigned char)(255.99 * clamp(framebuffer[i].x(),0.0,0.999));
 		color[1] = (unsigned char)(255.99 * clamp(framebuffer[i].y(),0.0,0.999));
 		color[2] = (unsigned char)(255.99 * clamp(framebuffer[i].z(),0.0,0.999));
